@@ -13,14 +13,3 @@ main: ${@}.c
 clean:
 	rm -f main
 
-
-#Information for inst:portmidi-217p0
-#
-#Files:
-#/usr/local/include/portmidi.h
-#/usr/local/include/porttime.h
-#/usr/local/lib/libportmidi.so.0.0
-#/usr/local/lib/libportmidi_s.a
-#/usr/local/lib/pkgconfig/portmidi.pc
-#
-#
