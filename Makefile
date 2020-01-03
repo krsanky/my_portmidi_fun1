@@ -8,8 +8,12 @@ LDFLAGS+=	-lportmidi
 main: ${@}.c
 	$(CC) $(CFLAGS) ${@}.c $(LDFLAGS) -o $@
 
+clicktrack: ${@}.c
+	$(CC) $(CFLAGS) -o $@ ${@}.c $(LDFLAGS) 
+
 .PHONY: clean 
     
 clean:
-	rm -f main
+	rm -f main clicktrack
+
 
