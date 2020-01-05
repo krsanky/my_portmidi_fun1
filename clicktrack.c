@@ -8,6 +8,14 @@ int
 main()
 {
 	printf("clicktrack\n");
+
+	int	i;
+	for (i=0; i<9000; i++) {
+		usleep(100);
+		printf("click - %d\n", i);
+	}
+
+
 	return EXIT_SUCCESS;
 }
 
