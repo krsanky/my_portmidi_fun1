@@ -11,7 +11,7 @@ main()
 
 	int	i;
 	for (i=0; i<9000; i++) {
-		usleep(100);
+		usleep(100000);
 		printf("click - %d\n", i);
 	}
 
