@@ -14,6 +14,6 @@ clicktrack: ${@}.c
 .PHONY: clean 
     
 clean:
-	rm -f main clicktrack
+	rm -f main clicktrack *.core *.BAK
 
 

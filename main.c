@@ -49,12 +49,9 @@ main()
 		Pm_Terminate();
 		return EXIT_FAILURE;
 	}
-
-
-
 	char 		chan = 0;
 	int 		prg = 0;
-	int			d2 = 120;
+	int 		d2 = 120;
 	long 		time = 0;
 	Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_PROGRAM | chan, prg, 0));
 
@@ -69,15 +66,15 @@ main()
 	Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_OFF | chan, 64, d2));
 	Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_OFF | chan, 67, d2));
 
-/*
-// notes will be sustained for 2 seconds
-time.Sleep(2 * time.Second)
-
-// note off events
-out.WriteShort(0x80, 60, d2)
-out.WriteShort(0x80, 64, d2)
-out.WriteShort(0x80, 67, d2)
-*/
+	/*
+	// notes will be sustained for 2 seconds
+	time.Sleep(2 * time.Second)
+	
+	// note off events
+	out.WriteShort(0x80, 60, d2)
+	out.WriteShort(0x80, 64, d2)
+	out.WriteShort(0x80, 67, d2)
+	*/
 
 
 
@@ -88,11 +85,11 @@ out.WriteShort(0x80, 67, d2)
 		//Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_PROGRAM | chan, prg, 0));
 		time = Pt_Time(NULL);
 		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_ON | chan, i, 120));
-		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_ON | chan+1, i+1, 120));
+		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_ON | chan + 1, i + 1, 120));
 		while (Pt_Time(NULL) - time < 1000)
 			usleep(100);
 		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_OFF | chan, i, 120));
-		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_OFF | chan+1, i+1, 120));
+		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_OFF | chan + 1, i + 1, 120));
 	}
 
 	Pm_Close(pm_stream);
