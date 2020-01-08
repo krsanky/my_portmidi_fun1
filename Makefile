@@ -14,7 +14,7 @@ main: ${@}.c
 clicktrack: ${@}.c
 	$(CC) $(CFLAGS) -o $@ ${@}.c $(LDFLAGS) 
 
-main2: ${@}.c ddice.h ddice.c mymidi.h
+basic_drum_1: ${@}.c ddice.h ddice.c mymidi.h
 	$(CC) $(CFLAGS) -o $@ ${@}.c ddice.c $(LDFLAGS) 
 
 ncur: $@.c
@@ -24,6 +24,7 @@ ncur: $@.c
     
 clean:
 	rm -f main clicktrack *.core *.BAK
-	rm -f main2 ncur
+	rm -f ncur
+	rm -f basic_drum_1
 
 
