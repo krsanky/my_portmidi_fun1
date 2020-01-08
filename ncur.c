@@ -67,18 +67,10 @@ main()
 	printw("123........\n");
 	refresh();
 
-	while ((ch = getch()) != KEY_F(1)) {
+	while ((ch = getch())) {
 		switch (ch) {
 		case 'q':
 			goto end;
-			break;
-		case KEY_LEFT:
-			break;
-		case KEY_RIGHT:
-			break;
-		case KEY_UP:
-			break;
-		case KEY_DOWN:
 			break;
 		}
 	}

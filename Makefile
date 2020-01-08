@@ -6,6 +6,8 @@ LDFLAGS+=	-lncurses
 
 #CFLAGS+=	`pkgconf --cflags gtk+-3.0` 
 
+all: main main2 clicktrack ncur
+
 main: ${@}.c
 	$(CC) $(CFLAGS) ${@}.c $(LDFLAGS) -o $@
 
