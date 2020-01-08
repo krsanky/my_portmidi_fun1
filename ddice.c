@@ -59,27 +59,13 @@ rand_lhand_1()
 	}
 }
 
-/*
-		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_ON | chan, midi_note, d2));
-		usleep(usl);
-		Pm_WriteShort(pm_stream, 0, Pm_Message(MIDI_NOTE_OFF | chan, midi_note, d2));
-
-	SNARE,
-	HIHAT,
-	KICK,
-	NONE,
-38 Acoustic Snare
-35 Acoustic Bass Drum
-36 Bass Drum 1
-42 Closed Hi Hat
-	int 		midi_note = 76;	* 76 77  low, high wood block *
-*/
 void
 play_tick(PortMidiStream *pms, struct tick *t)
 {
 	int chan = 9;
 	int wood_block = 76;
-	int		usl = 100000;
+	/*int		usl = 100000;*/
+	int		usl = 200000;
 
 	Pm_WriteShort(pms, 0, Pm_Message(MIDI_NOTE_ON | chan, wood_block, 60));
 

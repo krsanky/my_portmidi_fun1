@@ -1,8 +1,5 @@
 portmidi/
-main
 *.zip
-
-clicktrack
 switch.c
 table.c
 tick8.c

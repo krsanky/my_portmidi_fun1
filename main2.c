@@ -41,7 +41,6 @@ loop()
 	
 	zero_tick(the_tick);
 	for (i = 0; i < 9000; i++) {
-		//usleep(100000);
 		printf("%.8d %d %d %.2d\n", i, i%4, i%8, i%16);
 		next_tick();
 		//send_msg_click(pm_stream);
