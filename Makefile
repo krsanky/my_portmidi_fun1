@@ -11,9 +11,13 @@ main: ${@}.c
 clicktrack: ${@}.c
 	$(CC) $(CFLAGS) -o $@ ${@}.c $(LDFLAGS) 
 
+main2: ${@}.c ddice.h ddice.c mymidi.h
+	$(CC) $(CFLAGS) -o $@ ${@}.c ddice.c $(LDFLAGS) 
+
 .PHONY: clean 
     
 clean:
 	rm -f main clicktrack *.core *.BAK
+	rm -f main2
 
 
