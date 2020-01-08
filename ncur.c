@@ -57,9 +57,11 @@ main()
 
 	initscr();
 	cbreak();
-	/* noecho(); */
+	noecho();
+	/* Most programs would additionally use the sequence: */
+	nonl();
+	intrflush(stdscr, FALSE);
 	keypad(stdscr, TRUE);
-	/* clear(); */
 
 
 	printw("123........\n");
@@ -81,7 +83,7 @@ main()
 		}
 	}
 
-	 main_stuff(); 
+	main_stuff();
 
 end:
 	endwin();
