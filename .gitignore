@@ -3,3 +3,4 @@ portmidi/
 switch.c
 table.c
 tick8.c
+log.txt
