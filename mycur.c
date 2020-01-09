@@ -27,6 +27,7 @@ void
 mycur_init()
 {
 	initscr();
+	start_color();
 	cbreak();
 	noecho();
 	/* Most programs would additionally use the sequence: */

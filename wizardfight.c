@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <curses.h>
 
+#include "wizardfight.h"
 #include "mycur.h"
 
 int
@@ -20,6 +21,9 @@ main()
 	}
 	while ((c = getch())) {
 		switch (c) {
+		case 'h':
+			wf_show_help();
+			break;
 		case 'q':
 			goto end;
 		case 'w':
@@ -39,7 +43,9 @@ main()
 			wrefresh(arena);
 			break;
 		case 'p':
-			move(2, 2);
+			move(1, 5);
+			printw("Wizard Fight?");
+			move(2, 5);
 			printw("Wizard Fight!");
 			refresh();
 
@@ -64,6 +70,9 @@ main()
 			clear();
 			refresh();
 			break;
+		case 'r':
+			wf_allred();
+			break;
 		}
 	}
 
@@ -71,4 +80,66 @@ end:
 	delwin(arena);
 	endwin();
 	return EXIT_SUCCESS;
+}
+
+void
+wf_show_help()
+{
+	WINDOW         *h = newwin(30, 50, 4, 4);
+	box(h, 0, 0);
+	wmove(h, 1, 1);
+	wprintw(h, "h - help");
+	wmove(h, 2, 1);
+	wprintw(h, "q - quit");
+	wmove(h, 3, 1);
+	wprintw(h, "c - clear window");
+	wmove(h, 4, 1);
+	wprintw(h, "C - Clear");
+	wmove(h, 5, 1);
+	wprintw(h, "w - window");
+	wmove(h, 6, 1);
+	wprintw(h, "t - test");
+	wmove(h, 7, 1);
+	wprintw(h, "p - put wizards in window");
+	wmove(h, 8, 1);
+	wprintw(h, "r - all red");
+	curs_set(0);
+	wrefresh(h);
+
+	delwin(h);
+}
+
+/*
+    COLOR_BLACK
+    COLOR_RED
+    COLOR_GREEN
+    COLOR_YELLOW
+    COLOR_BLUE
+    COLOR_MAGENTA
+    COLOR_CYAN
+    COLOR_WHITE
+*/
+void
+wf_allred()
+{
+	int 		max_x    , max_y;
+	int 		x        , y;
+
+	getmaxyx(stdscr, max_y, max_x);
+	/*
+	init_pair(1, COLOR_YELLOW, COLOR_GREEN);
+	attron(COLOR_PAIR(PLAYER_PAIR));
+	mvaddch(y, x, PLAYER);
+	attroff(COLOR_PAIR(PLAYER_PAIR));
+	*/
+	init_pair(1, COLOR_YELLOW, COLOR_RED);
+	attron(COLOR_PAIR(1));
+	for (x = 0; x < max_x; x++) {
+		for (y = 0; y < max_y; y++) {
+			move(y, x);
+			addch('X');
+		}
+	}
+	refresh();
+	attroff(COLOR_PAIR(1));
 }
