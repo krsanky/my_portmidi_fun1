@@ -1,81 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <curses.h>
 
-/*
- *               The screen (stdscr)
- * (0,0)*----------------------------------* (0, COLS-1)
- *         |                                  |
- *         |                                  |
- *         |    (y0,x0)                       |
- *         |      ---------------             |
- *         |      |             |             |
- *         |      |             |             |
- *         |      |     win     |nlines       |
- *         |      |             |             |
- *         |      |             |             |
- *         |      |             |             |
- *         |      ---------------             |
- *         |          ncols                   |
- *         |                                  |
- *         *----------------------------------*
- * (LINES-1, 0)                              (LINES-1, COLS-1)
- */
+#include "mycur.h"
+
 
 void
-main_stuff()
+show_grid(char grid[4][8])
 {
-	int 		max_x    , max_y;
+	int 		i        , j;
+	int 		root      [2] = {2, 2};
 
-	getmaxyx(stdscr, max_y, max_x);
+	/* printw("COLUMNS:%d LINES:%d", max_x, max_y); OK ERR */
 
-	refresh();
-	sleep(2);
+	move(root[0], root[1]);
+	addch(ACS_ULCORNER);
+	printw("-----------");
+	for (i = 0; i < 4; i++) {
+		move(root[0]+1+i, root[1]);
 
-	int 		x        , y = 0;
-	for (x = 0; x < max_x; x++) {
-		mvaddch(y, x, '*');
-		y += 1;
-		usleep(1000);
-		refresh();
+		addch(ACS_VLINE);
+
+		for (j = 0; j < 8; j++) {
+			addch(grid[i][j]);
+			addch(' ');
+			addch(' ');
+			addch(' ');
+			addch(' ');
+		}
 	}
+	addch(ACS_LLCORNER);
+	addch(' ');
+	addch(ACS_LANTERN);
+	addch(' ');
+	addch(ACS_PI);
+	addch(' ');
+
+
 }
 
 int
 main()
 {
 	int 		ch;
-	int 		height   , width;
-	int 		starty   , startx;
+	char 		gf       [4][8] = {
+		{'1', ' ', '0', ' ', ' ', ' ', 'y', 'c'},
+		{' ', 'y', ' ', 'p', 'k', 'x', ' ', ' '},
+		{'1', '3', '0', ' ', ' ', ' ', 'i', 'c'},
+		{' ', ' ', ' ', 'j', ' ', 'x', ' ', ' '},
+	};
 
-	height = 3;
-	width = 10;
+	mycur_init();
 
-	starty = (LINES - height) / 2;
-	startx = (COLS - width) / 2;
-
-	initscr();
-	cbreak();
-	noecho();
-	/* Most programs would additionally use the sequence: */
-	nonl();
-	intrflush(stdscr, FALSE);
-	keypad(stdscr, TRUE);
-
-
-	printw("123........\n");
-	refresh();
-
+	show_grid(gf);
 	while ((ch = getch())) {
 		switch (ch) {
 		case 'q':
 			goto end;
 			break;
+		case 'm':
+			mycur_topl_down_1();
+			break;
+		case 'g':
+			show_grid(gf);
+			break;
+		case 'a':
+			move(1, 1);			
+			mycur_test_acs();
+			refresh();
+			break;
+		case 'e':
+			erase();
+			break;
 		}
 	}
-
-	main_stuff();
 
 end:
 	endwin();
