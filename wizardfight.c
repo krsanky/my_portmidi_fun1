@@ -73,6 +73,12 @@ main()
 		case 'r':
 			wf_allred();
 			break;
+		case 'T':
+			move(0,0);
+			mycur_test_acs();
+			curs_set(0); 
+			refresh();
+			break;
 		}
 	}
 
@@ -103,6 +109,8 @@ wf_show_help()
 	wprintw(h, "p - put wizards in window");
 	wmove(h, 8, 1);
 	wprintw(h, "r - all red");
+	wmove(h, 9, 1);
+	wprintw(h, "T - show ACS_* chars");
 	curs_set(0);
 	wrefresh(h);
 
