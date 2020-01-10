@@ -9,17 +9,28 @@
 int
 main()
 {
-	WINDOW         *arena;
+	WINDOW         *arena, *statw;
 	int 		c;
+	char		sbuf[128];
 
 	mycur_init();
+
+	statw = newwin(11, 30, 34, 4);
+	if (statw == NULL) {
+		move(2, 2);
+		printw("ERROR with statw newwin");
+	}
 
 	arena = newwin(30, 80, 4, 14);
 	if (arena == NULL) {
 		move(2, 2);
 		printw("ERROR with arena newwin");
 	}
+
 	while ((c = getch())) {
+		box(statw, 0, 0);
+		sprintf(sbuf, "<< %c >>", c);
+		wf_update_status(statw, sbuf);
 		switch (c) {
 		case 'h':
 			wf_show_help();
@@ -27,7 +38,7 @@ main()
 		case 'q':
 			goto end;
 		case 'w':
-			wborder(arena, 0, 0, 0, 0, 0, 0, 0, 0);
+			box(arena, 0, 0);
 			curs_set(0);
 			wrefresh(arena);
 			break;
@@ -79,11 +90,16 @@ main()
 			curs_set(0); 
 			refresh();
 			break;
+		case 'j':
+			box(statw, 0, 0);
+			wrefresh(statw);
+			break;
 		}
 	}
 
 end:
 	delwin(arena);
+	delwin(statw);
 	endwin();
 	return EXIT_SUCCESS;
 }
@@ -111,6 +127,9 @@ wf_show_help()
 	wprintw(h, "r - all red");
 	wmove(h, 9, 1);
 	wprintw(h, "T - show ACS_* chars");
+	wmove(h, 10, 1);
+	wprintw(h, "j - statw");
+
 	curs_set(0);
 	wrefresh(h);
 
@@ -151,3 +170,14 @@ wf_allred()
 	refresh();
 	attroff(COLOR_PAIR(1));
 }
+
+void
+wf_update_status(WINDOW *w, char * s)
+{
+	wmove(w, 2, 2);
+	wprintw(w, s);
+	curs_set(0);
+	wrefresh(w);
+}
+
+
