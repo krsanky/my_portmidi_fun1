@@ -1,0 +1,4 @@
+export TERM='xterm-256color'
+#this gets m can_change_colors, and 256 colors (vs. 8)
+#what is defaulr TERM var ?
+

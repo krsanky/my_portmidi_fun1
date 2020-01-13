@@ -94,6 +94,15 @@ main()
 			box(statw, 0, 0);
 			wrefresh(statw);
 			break;
+		case '1':	
+			wmove(arena, 1, 1);
+			wprintw(arena, "has_colors:%d", has_colors());
+			wmove(arena, 2, 1);
+			wprintw(arena, "can_change_color:%d", can_change_color());
+			wmove(arena, 3, 1);
+			wprintw(arena, "COLORS:%d COLOR_PAIRS:", COLORS, COLOR_PAIRS);
+			wrefresh(arena);
+			break;
 		}
 	}
 
@@ -129,6 +138,8 @@ wf_show_help()
 	wprintw(h, "T - show ACS_* chars");
 	wmove(h, 10, 1);
 	wprintw(h, "j - statw");
+	wmove(h, 11, 1);
+	wprintw(h, "1 - ncurses color stats");
 
 	curs_set(0);
 	wrefresh(h);

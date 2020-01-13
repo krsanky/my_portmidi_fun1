@@ -4,9 +4,7 @@ LDFLAGS+=	-L/usr/local/lib
 LDFLAGS+=	-lportmidi
 LDFLAGS+=	-lncurses
 
-#CFLAGS+=	`pkgconf --cflags gtk+-3.0` 
-
-all: main main2 clicktrack ncur
+all: main clicktrack ncur purple wizardfight basic_drum_1
 
 main: ${@}.c
 	$(CC) $(CFLAGS) ${@}.c $(LDFLAGS) -o $@
@@ -23,12 +21,19 @@ ncur: $@.c mycur.h mycur.c
 wizardfight: $@.c mycur.h mycur.c
 	$(CC) $(CFLAGS) $@.c mycur.c $(LDFLAGS) -o $@
 
+purple: $@.c mylib.h mycur.h mycur.c
+	$(CC) $(CFLAGS) $@.c mycur.c $(LDFLAGS) -o $@
+#	attrib.c
+#	colors.c
+#	conway.c
+#	mylib.h
+#	purple.c
+
 .PHONY: clean 
     
 clean:
 	rm -f main clicktrack *.core *.BAK
 	rm -f ncur
 	rm -f basic_drum_1
-	rm -f wizardfight
-
+	rm -f wizardfight purple  
 
